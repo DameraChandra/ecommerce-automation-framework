@@ -1,24 +1,23 @@
 package tests;
 
-import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+import factory.DriverFactory;
 import pages.LoginPage;
-import utils.RetryAnalyzer;
-import utils.TestListener;
 
-@Listeners(TestListener.class)
+public class LoginTest {
 
-public class LoginTest extends BaseTest {
+    @Test
+    public void verifyLogin() {
 
-    @Test(retryAnalyzer = RetryAnalyzer.class)
+        DriverFactory.initDriver();
 
-    public void loginTest() throws Exception {
+        DriverFactory.getDriver().get("https://example.com");
 
-        LoginPage lp = new LoginPage(driver);
+        LoginPage lp = new LoginPage();
 
-        lp.login("pavanol", "test123");
+        lp.doLogin("test@gmail.com", "test123");
 
-        System.out.println("Login Test Passed");
+        DriverFactory.quitDriver();
     }
 }
