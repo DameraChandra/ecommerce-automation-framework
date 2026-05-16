@@ -9,17 +9,22 @@ public class DriverFactory {
 
     public static WebDriver driver;
 
+    public static void initDriver() {
+
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+
+        driver.manage().window().maximize();
+    }
+
     public static WebDriver getDriver() {
-
-        if(driver == null) {
-
-            WebDriverManager.chromedriver().setup();
-
-            driver = new ChromeDriver();
-
-            driver.manage().window().maximize();
-        }
-
         return driver;
+    }
+
+    public static void quitDriver() {
+
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

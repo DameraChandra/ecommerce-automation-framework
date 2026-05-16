@@ -1,25 +1,14 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import base.BasePage;
 
-public class HomePage {
+public class HomePage extends BasePage {
 
-    WebDriver driver;
+    By loginBtn = By.xpath("//a[contains(text(),'Login')]");
 
-    // Constructor
-    public HomePage(WebDriver driver) {
+    public void clickLogin() {
 
-        this.driver = driver;
-    }
-
-    // Locator
-    By loginLink =
-            By.linkText("Login");
-
-    // Method
-    public void navigateToLogin() {
-
-        driver.findElement(loginLink).click();
+        driver.findElement(loginBtn).click();
     }
 }

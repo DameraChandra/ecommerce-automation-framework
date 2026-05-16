@@ -1,12 +1,13 @@
 package base;
 
 import org.openqa.selenium.WebDriver;
+import factory.DriverFactory;
 
 public class BasePage {
 
-    protected static WebDriver driver;
+    protected WebDriver driver;
 
     public BasePage() {
-        driver = BaseTest.driver;
+        this.driver = DriverFactory.getDriver();
     }
 }

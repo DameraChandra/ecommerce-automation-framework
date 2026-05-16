@@ -1,33 +1,24 @@
 package stepdefinitions;
 
-import factory.DriverFactory;
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import pages.HomePage;
 import pages.LoginPage;
 
 public class LoginSteps {
 
-    HomePage homePage;
-    LoginPage loginPage;
+    HomePage homePage = new HomePage();
+    LoginPage loginPage = new LoginPage();
 
-    @Given("User launches application")
-    public void launchApp() {
-        homePage = new HomePage(DriverFactory.getDriver());
-    }
+    @Given("user clicks on login")
+    public void user_clicks_on_login() {
 
-    @When("User navigates to login page")
-    public void goToLogin() {
         homePage.clickLogin();
     }
 
-    @And("User enters email and password")
-    public void enterDetails() {
-        loginPage = new LoginPage(DriverFactory.getDriver());
-        loginPage.doLogin("test@gmail.com", "123456");
-    }
+    @When("user enters username {string} and password {string}")
+    public void user_enters_username_and_password(String username, String password) {
 
-    @Then("User should login successfully")
-    public void verifyLogin() {
-        System.out.println("✅ Login Successful");
+        loginPage.doLogin(username, password);
     }
 }

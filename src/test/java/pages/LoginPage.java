@@ -1,35 +1,18 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import base.BasePage;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
 
-    WebDriver driver;
+    By email = By.id("email");
+    By password = By.id("password");
+    By loginBtn = By.id("loginBtn");
 
-    public LoginPage(WebDriver driver) {
+    public void doLogin(String user, String pass) {
 
-        this.driver = driver;
-    }
-
-    By loginLink = By.id("login2");
-
-    By username = By.id("loginusername");
-
-    By password = By.id("loginpassword");
-
-    By loginButton = By.xpath("//button[text()='Log in']");
-
-    public void login(String user, String pass) throws Exception {
-
-        driver.findElement(loginLink).click();
-
-        Thread.sleep(2000);
-
-        driver.findElement(username).sendKeys(user);
-
+        driver.findElement(email).sendKeys(user);
         driver.findElement(password).sendKeys(pass);
-
-        driver.findElement(loginButton).click();
+        driver.findElement(loginBtn).click();
     }
 }
