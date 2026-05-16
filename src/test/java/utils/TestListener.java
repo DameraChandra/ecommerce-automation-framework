@@ -1,10 +1,10 @@
 package utils;
 
-import java.io.IOException;
-
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+
+import factory.DriverFactory;
 
 public class TestListener implements ITestListener {
 
@@ -23,27 +23,29 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestStart(ITestResult result) {
 
-        System.out.println("STARTED : " + result.getName());
+        System.out.println("Test Started : " + result.getName());
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
 
-        System.out.println("PASSED : " + result.getName());
+        System.out.println("Test Passed : " + result.getName());
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
 
-        System.out.println("FAILED : " + result.getName());
+        System.out.println("Test Failed : " + result.getName());
 
-        try {
+        ScreenshotUtils.takeScreenshot(
+                DriverFactory.getDriver(),
+                result.getName()
+        );
+    }
 
-            ScreenshotUtils.capture(result.getName());
+    @Override
+    public void onTestSkipped(ITestResult result) {
 
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }
+        System.out.println("Test Skipped : " + result.getName());
     }
 }
