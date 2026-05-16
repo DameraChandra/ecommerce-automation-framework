@@ -2,22 +2,20 @@ package tests;
 
 import org.testng.annotations.Test;
 
-import factory.DriverFactory;
+import base.BaseTest;
 import pages.LoginPage;
 
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
     @Test
     public void verifyLogin() {
 
-        DriverFactory.initDriver();
+        driver.get("https://example.com/login");
 
-        DriverFactory.getDriver().get("https://example.com");
+        LoginPage lp = new LoginPage(driver);
 
-        LoginPage lp = new LoginPage();
+        lp.doLogin("admin@test.com", "admin123");
 
-        lp.doLogin("test@gmail.com", "test123");
-
-        DriverFactory.quitDriver();
+        System.out.println("Login Successful");
     }
 }
