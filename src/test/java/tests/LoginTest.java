@@ -9,11 +9,11 @@ public class LoginTest extends BaseTest {
     @Test
     public void verifyLogin() {
 
-        driver.get("https://example.com/login");
+        driver.get("https://www.saucedemo.com");
 
         LoginPage lp = new LoginPage(driver);
 
-        lp.login("test@gmail.com", "12345");
+        lp.login("standard_user", "secret_sauce");
 
         System.out.println("Login Successful");
     }

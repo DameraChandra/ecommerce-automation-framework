@@ -1,52 +1,31 @@
 package pages;
 
-import java.time.Duration;
-
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 public class ProductPage {
 
     WebDriver driver;
 
-    WebDriverWait wait;
-
     public ProductPage(WebDriver driver) {
-
         this.driver = driver;
-
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    By samsungMobile =
-            By.linkText("Samsung galaxy s6");
+    By backpack = By.id("add-to-cart-sauce-labs-backpack");
 
-    By addToCart =
-            By.linkText("Add to cart");
+    public void addProduct() {
 
-    public void searchProduct() throws Exception {
+        WebDriverWait wait =
+                new WebDriverWait(driver, Duration.ofSeconds(20));
 
-        wait.until(ExpectedConditions
-                .visibilityOfElementLocated(samsungMobile));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(backpack));
 
-        driver.findElement(samsungMobile).click();
+        driver.findElement(backpack).click();
 
-        wait.until(ExpectedConditions
-                .visibilityOfElementLocated(addToCart));
-
-        driver.findElement(addToCart).click();
-
-        Thread.sleep(2000);
-
-        Alert alert = driver.switchTo().alert();
-
-        System.out.println(alert.getText());
-
-        alert.accept();
-
-        System.out.println("Product Added To Cart");
+        System.out.println("Product added");
     }
 }
