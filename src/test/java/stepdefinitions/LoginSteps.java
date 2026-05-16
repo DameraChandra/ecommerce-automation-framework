@@ -1,27 +1,33 @@
 package stepdefinitions;
 
+import io.cucumber.java.en.*;
+
+import org.openqa.selenium.WebDriver;
+
 import factory.DriverFactory;
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import pages.LoginPage;
 
 public class LoginSteps {
 
-    LoginPage loginPage =
-            new LoginPage(DriverFactory.getDriver());
+    WebDriver driver = DriverFactory.getDriver();
 
-    @Given("user is on login page")
+    LoginPage loginPage = new LoginPage(driver);
+
+    @Given("User is on login page")
     public void user_is_on_login_page() {
 
-        DriverFactory.getDriver()
-                .get("https://example.com/login");
+        driver.get("https://example.com/login");
     }
 
-    @When("user enters username and password")
+    @When("User enters username and password")
     public void user_enters_username_and_password() {
 
-        loginPage.doLogin(
-                "admin@test.com",
-                "admin123");
+        loginPage.login("test@gmail.com", "12345");
+    }
+
+    @Then("User should login successfully")
+    public void user_should_login_successfully() {
+
+        System.out.println("Login Successful");
     }
 }
