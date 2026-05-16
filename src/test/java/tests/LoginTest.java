@@ -2,7 +2,6 @@ package tests;
 
 import org.testng.annotations.Test;
 
-import base.BaseTest;
 import pages.LoginPage;
 
 public class LoginTest extends BaseTest {
@@ -14,7 +13,7 @@ public class LoginTest extends BaseTest {
 
         LoginPage lp = new LoginPage(driver);
 
-        lp.doLogin("admin@test.com", "admin123");
+        lp.login("test@gmail.com", "12345");
 
         System.out.println("Login Successful");
     }
