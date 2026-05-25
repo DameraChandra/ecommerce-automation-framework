@@ -1,32 +1,47 @@
 package stepdefinitions;
 
-import io.cucumber.java.en.*;
-
-import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 import factory.DriverFactory;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import pages.LoginPage;
 
 public class LoginSteps {
 
-    WebDriver driver = DriverFactory.getDriver();
-
-    LoginPage loginPage = new LoginPage(driver);
+    LoginPage loginPage;
 
     @Given("User is on login page")
     public void user_is_on_login_page() {
 
-        driver.get("https://example.com/login");
+        DriverFactory.getDriver()
+                .get("https://www.saucedemo.com/");
+
+        loginPage = new LoginPage();
     }
 
     @When("User enters username and password")
     public void user_enters_username_and_password() {
 
-        loginPage.login("test@gmail.com", "12345");
+        loginPage.enterUsername("standard_user");
+
+        loginPage.enterPassword("secret_sauce");
     }
 
-    @Then("User should login successfully")
-    public void user_should_login_successfully() {
+    @When("Clicks on login button")
+    public void clicks_on_login_button() {
+
+        loginPage.clickLogin();
+    }
+
+    @Then("User should navigate to home page")
+    public void user_should_navigate_to_home_page() {
+
+        String title =
+                DriverFactory.getDriver().getTitle();
+
+        Assert.assertTrue(title.contains("Swag"));
 
         System.out.println("Login Successful");
     }

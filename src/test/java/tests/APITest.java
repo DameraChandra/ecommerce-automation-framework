@@ -1,95 +1,54 @@
 package tests;
 
-import static io.restassured.RestAssured.given;
-
 import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+
+import static io.restassured.RestAssured.*;
 
 public class APITest {
 
-    String apiKey = "free_user_3C4fgVCL2G432FLXilo5uv2QK3T";
-
     @Test
-
     public void validateCreateUser() {
 
-        String body = "{\n" +
-                "\"name\":\"Chandra\",\n" +
-                "\"job\":\"QA\"\n" +
-                "}";
+        RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
 
-        String response = given()
-
-                .header("x-api-key", apiKey)
+        given()
 
                 .header("Content-Type", "application/json")
 
-                .body(body)
+                .body("{\n" +
+                        "  \"title\": \"QA Testing\",\n" +
+                        "  \"body\": \"Automation Framework\",\n" +
+                        "  \"userId\": 1\n" +
+                        "}")
 
-                .when()
+        .when()
 
-                .post("https://reqres.in/api/users")
+                .post("/posts")
 
-                .then()
+        .then()
 
-                .statusCode(201)
+                .statusCode(201);
 
-                .extract()
-
-                .asPrettyString();
-
-        System.out.println("POST RESPONSE");
-
-        System.out.println(response);
+        System.out.println("POST API PASSED");
     }
 
     @Test
-
     public void validateGetUsersAPI() {
 
-        String response = given()
+        RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
 
-                .header("x-api-key", apiKey)
+        given()
 
-                .when()
+        .when()
 
-                .get("https://reqres.in/api/users?page=2")
+                .get("/posts/1")
 
-                .then()
+        .then()
 
-                .statusCode(200)
+                .statusCode(200);
 
-                .extract()
-
-                .asPrettyString();
-
-        System.out.println("GET RESPONSE");
-
-        System.out.println(response);
-
-        String email = given()
-
-                .header("x-api-key", apiKey)
-
-                .when()
-
-                .get("https://reqres.in/api/users?page=2")
-
-                .jsonPath()
-
-                .getString("data[0].email");
-
-        System.out.println("EMAIL : " + email);
-
-        String contentType = given()
-
-                .header("x-api-key", apiKey)
-
-                .when()
-
-                .get("https://reqres.in/api/users?page=2")
-
-                .getContentType();
-
-        System.out.println("CONTENT TYPE : " + contentType);
+        System.out.println("GET API PASSED");
     }
 }

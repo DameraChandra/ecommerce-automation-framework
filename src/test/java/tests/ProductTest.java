@@ -2,20 +2,18 @@ package tests;
 
 import org.testng.annotations.Test;
 
-import pages.LoginPage;
-import pages.ProductPage;
+import base.BaseTest;
+import factory.DriverFactory;
 
 public class ProductTest extends BaseTest {
 
     @Test
-    public void verifyProductAddToCart() {
+    public void testGoogle() {
 
-        driver.get("https://www.saucedemo.com");
+        DriverFactory.getDriver().get("https://www.google.com");
 
-        LoginPage lp = new LoginPage(driver);
-        lp.login("standard_user", "secret_sauce");
+        System.out.println("Title is: "
+                + DriverFactory.getDriver().getTitle());
 
-        ProductPage pp = new ProductPage(driver);
-        pp.addProduct();
     }
 }

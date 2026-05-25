@@ -1,13 +1,15 @@
 package hooks;
 
+import factory.DriverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import factory.DriverFactory;
 
 public class Hooks {
 
     @Before
-    public void setup() {
+    public void setUp() {
+
+        System.out.println("Execution Started");
 
         DriverFactory.initDriver();
     }
@@ -16,5 +18,7 @@ public class Hooks {
     public void tearDown() {
 
         DriverFactory.quitDriver();
+
+        System.out.println("Execution Completed");
     }
 }

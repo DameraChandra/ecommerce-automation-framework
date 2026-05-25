@@ -1,8 +1,8 @@
 Feature: Login Functionality
 
-Scenario: Valid Login Test
+  Scenario: Valid Login
 
-Given User launches application
-When User navigates to login page
-And User enters email and password
-Then User should login successfully
+    Given User is on login page
+    When User enters username and password
+    And Clicks on login button
+    Then User should navigate to home page

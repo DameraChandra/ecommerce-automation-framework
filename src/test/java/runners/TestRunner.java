@@ -1,10 +1,33 @@
 package runners;
 
-public class TestRunner {
+import org.testng.annotations.DataProvider;
 
-    public static void main(String[] args) {
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
 
-        System.out.println(
-                "Framework Execution Started");
+@CucumberOptions(
+
+        features = "src/test/resources/features",
+        glue = {
+                "stepdefinitions",
+                "hooks"
+        },
+
+        plugin = {
+                "pretty",
+                "html:reports/cucumber-report.html",
+                "json:reports/cucumber.json"
+        },
+
+        monochrome = true
+)
+
+public class TestRunner extends AbstractTestNGCucumberTests {
+
+    @Override
+    @DataProvider(parallel = false)
+    public Object[][] scenarios() {
+
+        return super.scenarios();
     }
 }

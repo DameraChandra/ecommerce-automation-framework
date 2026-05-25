@@ -1,42 +1,38 @@
 package utils;
 
+import java.io.FileInputStream;
+
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.FileInputStream;
-
 public class ExcelUtils {
 
-    public static String getCellData(int row, int col) {
+    public static String getCellData(String path,
+                                     String sheetName,
+                                     int rowNum,
+                                     int cellNum) {
 
-        String path =
-                "src/test/resources/testdata/LoginData.xlsx";
+        String data = "";
 
         try {
 
-            FileInputStream fis =
-                    new FileInputStream(path);
+            FileInputStream fis = new FileInputStream(path);
 
-            XSSFWorkbook workbook =
-                    new XSSFWorkbook(fis);
+            XSSFWorkbook workbook = new XSSFWorkbook(fis);
 
-            XSSFSheet sheet =
-                    workbook.getSheet("Sheet1");
+            XSSFSheet sheet = workbook.getSheet(sheetName);
 
-            String data =
-                    sheet.getRow(row)
-                            .getCell(col)
-                            .toString();
+            data = sheet.getRow(rowNum)
+                        .getCell(cellNum)
+                        .getStringCellValue();
 
             workbook.close();
-
-            return data;
 
         } catch (Exception e) {
 
             e.printStackTrace();
         }
 
-        return "";
+        return data;
     }
 }

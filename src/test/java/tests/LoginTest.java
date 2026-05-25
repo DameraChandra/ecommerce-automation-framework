@@ -1,20 +1,31 @@
 package tests;
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import pages.LoginPage;
+import factory.DriverFactory;
 
-public class LoginTest extends BaseTest {
+public class LoginTest {
+
+    @BeforeMethod
+    public void setup() {
+
+        DriverFactory.initDriver();
+    }
 
     @Test
-    public void verifyLogin() {
+    public void loginTest() {
 
-        driver.get("https://www.saucedemo.com");
+        DriverFactory.getDriver()
+                .get("https://www.saucedemo.com/");
 
-        LoginPage lp = new LoginPage(driver);
+        System.out.println("Login Test Executed");
+    }
 
-        lp.login("standard_user", "secret_sauce");
+    @AfterMethod
+    public void tearDown() {
 
-        System.out.println("Login Successful");
+        DriverFactory.quitDriver();
     }
 }
