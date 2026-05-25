@@ -12,18 +12,21 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <selenium.version>4.21.0</selenium.version>
+        <cucumber.version>7.15.0</cucumber.version>
+        <restassured.version>5.4.0</restassured.version>
+        <poi.version>5.2.5</poi.version>
     </properties>
 
     <dependencies>
 
-        <!-- ===================== SELENIUM ===================== -->
+        <!-- ================= SELENIUM ================= -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
 
-        <!-- ===================== TESTNG ===================== -->
+        <!-- ================= TESTNG ================= -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -31,21 +34,55 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ===================== WEBDRIVER MANAGER ===================== -->
+        <!-- ================= WEBDRIVER MANAGER ================= -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>5.9.2</version>
         </dependency>
 
-        <!-- ===================== EXTENT REPORTS (FIX FOR YOUR ERROR) ===================== -->
+        <!-- ================= EXTENT REPORTS ================= -->
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
             <version>5.1.1</version>
         </dependency>
 
-        <!-- ===================== SLF4J FIX (REMOVE WARNINGS) ===================== -->
+        <!-- ================= REST ASSURED (API TESTING) ================= -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- ================= CUCUMBER (BDD) ================= -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!-- ================= APACHE POI (EXCEL SUPPORT) ================= -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${poi.version}</version>
+        </dependency>
+
+        <!-- ================= SLF4J (REMOVE WARNINGS) ================= -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -58,7 +95,7 @@
 
         <plugins>
 
-            <!-- ===================== COMPILER ===================== -->
+            <!-- ================= JAVA COMPILER ================= -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -69,7 +106,7 @@
                 </configuration>
             </plugin>
 
-            <!-- ===================== SUREFIRE (TESTNG RUNNER) ===================== -->
+            <!-- ================= SUREFIRE (TEST RUNNER) ================= -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -80,7 +117,6 @@
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
 
-                    <!-- Helpful for Jenkins logs -->
                     <printSummary>true</printSummary>
                     <reportFormat>brief</reportFormat>
                 </configuration>
