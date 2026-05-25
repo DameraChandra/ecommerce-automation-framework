@@ -8,11 +8,11 @@ public class BaseTest {
 
     @BeforeMethod
     public void setUp() {
-        DriverFactory.initDriver();   // ✅ ALWAYS initializes driver
+        DriverFactory.initDriver();   // ✅ NO PARAMETER
     }
 
     @AfterMethod
     public void tearDown() {
-        DriverFactory.quitDriver();   // ✅ prevents memory leaks in Jenkins
+        DriverFactory.quitDriver();
     }
 }

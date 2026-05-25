@@ -1,20 +1,18 @@
 package hooks;
 
 import factory.DriverFactory;
-import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.After;
 
 public class Hooks {
 
     @Before
-    public void setup() {
-
-        DriverFactory.initDriver("chrome");
+    public void setUp() {
+        DriverFactory.initDriver();  // ✅ FIXED (no parameter)
     }
 
     @After
     public void tearDown() {
-
         DriverFactory.quitDriver();
     }
 }

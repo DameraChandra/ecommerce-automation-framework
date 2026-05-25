@@ -10,11 +10,12 @@ public class DriverFactory {
 
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
+    // ❌ NO PARAMETERS (FIXED)
     public static void initDriver() {
 
         ChromeOptions options = new ChromeOptions();
 
-        // ✅ REQUIRED for Jenkins / CI
+        // Jenkins + CI safe
         options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
