@@ -1,37 +1,10 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="TestSuite">
 
-<suite name="GridSuite"
-       parallel="tests"
-       thread-count="2">
-
-    <!-- Chrome Test -->
-
-    <test name="ChromeTest">
-
-        <parameter name="browser"
-                   value="chrome"/>
-
+    <test name="UI Tests">
         <classes>
-
             <class name="tests.ProductTest"/>
-
         </classes>
-
-    </test>
-
-    <!-- Firefox Test -->
-
-    <test name="FirefoxTest">
-
-        <parameter name="browser"
-                   value="firefox"/>
-
-        <classes>
-
-            <class name="tests.ProductTest"/>
-
-        </classes>
-
     </test>
 
 </suite>

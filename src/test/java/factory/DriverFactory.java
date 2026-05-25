@@ -2,32 +2,40 @@ package factory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.time.Duration;
 
 public class DriverFactory {
 
-    public static WebDriver driver;
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    // Initialize Driver
-    public static void initDriver(String browser) {
+    public static void initDriver() {
 
-        if (browser.equalsIgnoreCase("chrome")) {
+        ChromeOptions options = new ChromeOptions();
 
-            driver = new ChromeDriver();
+        // ✅ REQUIRED for Jenkins / CI
+        options.addArguments("--headless=new");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--remote-allow-origins=*");
 
-            driver.manage().window().maximize();
-        }
+        WebDriver webDriver = new ChromeDriver(options);
+
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        webDriver.manage().window().maximize();
+
+        driver.set(webDriver);
     }
 
-    // Get Driver
     public static WebDriver getDriver() {
-        return driver;
+        return driver.get();
     }
 
-    // Quit Driver
     public static void quitDriver() {
-
-        if (driver != null) {
-            driver.quit();
+        if (driver.get() != null) {
+            driver.get().quit();
+            driver.remove();
         }
     }
 }

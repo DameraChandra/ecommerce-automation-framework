@@ -1,9 +1,8 @@
 package tests;
 
-import org.testng.annotations.Test;
-
 import base.BaseTest;
 import factory.DriverFactory;
+import org.testng.annotations.Test;
 
 public class ProductTest extends BaseTest {
 
@@ -12,8 +11,6 @@ public class ProductTest extends BaseTest {
 
         DriverFactory.getDriver().get("https://www.google.com");
 
-        System.out.println("Title is: "
-                + DriverFactory.getDriver().getTitle());
-
+        System.out.println("Title is: " + DriverFactory.getDriver().getTitle());
     }
 }
