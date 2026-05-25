@@ -7,18 +7,14 @@ import io.cucumber.java.Before;
 public class Hooks {
 
     @Before
-    public void setUp() {
+    public void setup() {
 
-        System.out.println("Execution Started");
-
-        DriverFactory.initDriver();
+        DriverFactory.initDriver("chrome");
     }
 
     @After
     public void tearDown() {
 
         DriverFactory.quitDriver();
-
-        System.out.println("Execution Completed");
     }
 }

@@ -1,73 +1,33 @@
 package factory;
 
-import java.net.URL;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class DriverFactory {
 
     public static WebDriver driver;
 
     // Initialize Driver
-    public static WebDriver initDriver(String browser) {
+    public static void initDriver(String browser) {
 
-        try {
+        if (browser.equalsIgnoreCase("chrome")) {
 
-            // Chrome Browser
-            if (browser.equalsIgnoreCase("chrome")) {
+            driver = new ChromeDriver();
 
-                ChromeOptions options = new ChromeOptions();
-
-                driver = new RemoteWebDriver(
-                        new URL("http://localhost:4444"),
-                        options);
-
-            }
-
-            // Firefox Browser
-            else if (browser.equalsIgnoreCase("firefox")) {
-
-                FirefoxOptions options = new FirefoxOptions();
-
-                driver = new RemoteWebDriver(
-                        new URL("http://localhost:4444"),
-                        options);
-
-            }
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
+            driver.manage().window().maximize();
         }
-
-        return driver;
     }
 
     // Get Driver
     public static WebDriver getDriver() {
-
         return driver;
     }
 
-    // Quit Driver Safely
+    // Quit Driver
     public static void quitDriver() {
 
-        try {
-
-            if (driver != null) {
-
-                driver.quit();
-
-            }
-
-        } catch (Exception e) {
-
-            System.out.println("Driver already closed.");
-
+        if (driver != null) {
+            driver.quit();
         }
     }
 }
