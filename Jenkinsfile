@@ -1,17 +1,30 @@
 pipeline {
+
     agent any
 
     stages {
 
-        stage('Build') {
+        stage('Checkout') {
+
             steps {
-                bat 'mvn clean'
+
+                git 'YOUR_GITHUB_REPOSITORY_URL'
             }
         }
 
-        stage('Test') {
+        stage('Build') {
+
             steps {
-                bat 'mvn test'
+
+                bat 'mvn clean test'
+            }
+        }
+
+        stage('Generate Reports') {
+
+            steps {
+
+                echo 'Reports Generated'
             }
         }
     }
