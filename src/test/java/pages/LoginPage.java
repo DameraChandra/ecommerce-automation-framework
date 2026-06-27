@@ -14,23 +14,32 @@ public class LoginPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(id = "username")
+    @FindBy(id = "user-name")
     WebElement username;
 
     @FindBy(id = "password")
     WebElement password;
 
-    @FindBy(id = "login")
+    @FindBy(id = "login-button")
     WebElement loginButton;
 
-    public void login(String user, String pass) {
-
+    public void enterUsername(String user) {
         username.clear();
         username.sendKeys(user);
+    }
 
+    public void enterPassword(String pass) {
         password.clear();
         password.sendKeys(pass);
+    }
 
+    public void clickLogin() {
         loginButton.click();
+    }
+
+    public void login(String user, String pass) {
+        enterUsername(user);
+        enterPassword(pass);
+        clickLogin();
     }
 }

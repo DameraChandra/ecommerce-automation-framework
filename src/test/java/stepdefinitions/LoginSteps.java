@@ -15,33 +15,29 @@ public class LoginSteps {
     @Given("User is on login page")
     public void user_is_on_login_page() {
 
-        DriverFactory.getDriver()
-                .get("https://www.saucedemo.com/");
+        DriverFactory.getDriver().get("https://www.saucedemo.com/");
 
-        loginPage = new LoginPage();
+        loginPage = new LoginPage(DriverFactory.getDriver());
     }
 
     @When("User enters username and password")
     public void user_enters_username_and_password() {
 
-        loginPage.enterUsername("standard_user");
-
-        loginPage.enterPassword("secret_sauce");
+        loginPage.login("standard_user", "secret_sauce");
     }
 
     @When("Clicks on login button")
     public void clicks_on_login_button() {
 
-        loginPage.clickLogin();
+        // Login button is already clicked inside login()
     }
 
     @Then("User should navigate to home page")
     public void user_should_navigate_to_home_page() {
 
-        String title =
-                DriverFactory.getDriver().getTitle();
+        String currentUrl = DriverFactory.getDriver().getCurrentUrl();
 
-        Assert.assertTrue(title.contains("Swag"));
+        Assert.assertTrue(currentUrl.contains("inventory"));
 
         System.out.println("Login Successful");
     }
