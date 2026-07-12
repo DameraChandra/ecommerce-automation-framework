@@ -1,32 +1,75 @@
 package factory;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class DriverFactory {
 
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    // ❌ NO PARAMETERS (FIXED)
-    public static void initDriver() {
+    public static void initDriver(String browser) {
 
-        ChromeOptions options = new ChromeOptions();
+        WebDriver webDriver = null;
 
-        // Jenkins + CI safe
-        options.addArguments("--headless=new");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--remote-allow-origins=*");
+        try {
 
-        WebDriver webDriver = new ChromeDriver(options);
+            if (browser.equalsIgnoreCase("chrome")) {
 
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        webDriver.manage().window().maximize();
+                ChromeOptions options = new ChromeOptions();
 
-        driver.set(webDriver);
+                webDriver = new RemoteWebDriver(
+                        new URL("http://localhost:4444"),
+                        options);
+
+            } else if (browser.equalsIgnoreCase("firefox")) {
+
+                FirefoxOptions options = new FirefoxOptions();
+
+                webDriver = new RemoteWebDriver(
+                        new URL("http://localhost:4444"),
+                        options);
+
+            } else if (browser.equalsIgnoreCase("edge")) {
+
+                EdgeOptions options = new EdgeOptions();
+
+                webDriver = new RemoteWebDriver(
+                        new URL("http://localhost:4444"),
+                        options);
+
+            } else {
+
+                throw new RuntimeException("Invalid Browser : " + browser);
+
+            }
+
+            webDriver.manage().window().maximize();
+            webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+            driver.set(webDriver);
+
+            // ===============================
+            // Verification Messages
+            // ===============================
+            System.out.println("==========================================");
+            System.out.println(" Selenium Grid Connected Successfully ");
+            System.out.println(" Browser : " + browser);
+            System.out.println(" Driver  : " + webDriver.getClass().getName());
+            System.out.println(" Grid URL: http://localhost:4444");
+            System.out.println("==========================================");
+
+        } catch (MalformedURLException e) {
+
+            throw new RuntimeException("Invalid Grid URL", e);
+
+        }
     }
 
     public static WebDriver getDriver() {
@@ -34,9 +77,15 @@ public class DriverFactory {
     }
 
     public static void quitDriver() {
+
         if (driver.get() != null) {
+
             driver.get().quit();
             driver.remove();
+
+            System.out.println("==========================================");
+            System.out.println(" Browser Closed Successfully ");
+            System.out.println("==========================================");
         }
     }
 }

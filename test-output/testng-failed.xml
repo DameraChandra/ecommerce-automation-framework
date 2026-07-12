@@ -3,27 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="utilities.ReportTest">
+      <class name="tests.CheckoutTest">
         <methods>
-          <include name="createReport"/>
+          <include name="setUp"/>
+          <include name="tearDown"/>
+          <include name="checkout"/>
         </methods>
-      </class> <!-- utilities.ReportTest -->
-      <class name="tests.APITest">
-        <methods>
-          <include name="validateCreateUser"/>
-          <include name="validateGetUsersAPI"/>
-        </methods>
-      </class> <!-- tests.APITest -->
-      <class name="tests.DockerTest">
-        <methods>
-          <include name="testGoogle"/>
-        </methods>
-      </class> <!-- tests.DockerTest -->
-      <class name="api_tests.ApiTest">
-        <methods>
-          <include name="validateProductsAPI"/>
-        </methods>
-      </class> <!-- api_tests.ApiTest -->
+      </class> <!-- tests.CheckoutTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
